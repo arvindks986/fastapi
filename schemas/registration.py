@@ -7,7 +7,7 @@ class RegistrationRequest(BaseModel):
     mobile: str = Field(min_length=10, max_length=10)
     password: str
 
-
+#model is
 class RegistrationResponseget(BaseModel):
     id: int
     name: str
