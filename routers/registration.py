@@ -15,7 +15,8 @@ import uuid
 import json
 import aiofiles
 import asyncio
-value = redis_client.get("my_key")
+
+#value = redis_client.get("my_key")
 
 #print(value)
 #print("value: ", value)
