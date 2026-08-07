@@ -1,0 +1,13 @@
+python
+
+pip install pwdlib[argon2]   // password save as hash
+pip install email-validator  // Email vaildater
+pip install pwdlib[argon2]   //password hassing library
+
+uvicorn main:app --reload --port 8100   // run project
+pip install PyJWT            // For JWT Token 
+pip install python-dotenv    // .env file create
+pip install python-multipart // upload file
+pip install redis            // install redis  
+
+ 
