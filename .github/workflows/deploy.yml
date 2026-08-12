@@ -11,7 +11,7 @@ jobs:
 
     steps:
 
-      # 1. Get latest code from GitHub
+      # 1. Get latest code
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -20,25 +20,30 @@ jobs:
         run: |
           docker-compose build --no-cache
 
-      # 3. Run tests
+      # 3. Start MySQL only for testing
+      - name: Start MySQL
+        run: |
+          docker-compose up -d mysql
+
+      # 4. Run tests
       - name: Run tests
         run: |
-          docker-compose run --rm fastapi
+          docker-compose run --rm fastapi pytest
 
-      # 4. Deploy only if build + tests succeed
-      - name: Deploy to AWS
+      # 5. Stop test MySQL
+      - name: Stop test containers
+        if: always()
         run: |
-          cd /home/ubuntu/fastapi
-
-          git pull origin main
-
           docker-compose down
 
+      # 6. Deploy only if build + tests succeed
+      - name: Deploy
+        if: success()
+        run: |
           docker-compose build
+          docker-compose up -d fastapi redis
 
-          docker-compose up -d
-
-      # 5. Check running containers
+      # 7. Check running containers
       - name: Check containers
         run: |
           docker-compose ps
