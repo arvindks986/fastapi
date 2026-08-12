@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends,File, UploadFile, Form
+from fastapi import APIRouter, Depends,File, UploadFile, Form,HTTPException
 from sqlalchemy.orm import Session
 from dbconnection import get_db
 from models.registration import Registration
