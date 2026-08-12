@@ -1,0 +1,44 @@
+name: Deploy FastAPI to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+
+      # 1. Get latest code from GitHub
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Build Docker image
+      - name: Build Docker image
+        run: |
+          docker compose build
+
+      # 3. Run tests
+      - name: Run tests
+        run: |
+          docker compose run --rm fastapi pytest
+
+      # 4. Deploy only if build + tests succeed
+      - name: Deploy to AWS
+        run: |
+          cd /home/ubuntu/fastapi
+
+          git pull origin main
+
+          docker compose down
+
+          docker compose build
+
+          docker compose up -d
+
+      # 5. Check running containers
+      - name: Check containers
+        run: |
+          docker compose ps
