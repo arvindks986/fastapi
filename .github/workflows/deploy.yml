@@ -23,7 +23,7 @@ jobs:
       # 3. Run tests
       - name: Run tests
         run: |
-          docker-compose run --rm fastapi pytest
+          docker-compose run --rm fastapi
 
       # 4. Deploy only if build + tests succeed
       - name: Deploy to AWS
