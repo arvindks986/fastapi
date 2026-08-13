@@ -8,7 +8,11 @@ from routers.registration import router as registration_router
 from services.redis_service import redis_client
 from routers.auth import router as auth_router
 app = FastAPI()
-Base.metadata.create_all(bind=engine)
+
+@app.on_event("startup")
+def startup():
+    Base.metadata.create_all(bind=engine)
+
 app.include_router(registration_router)
 app.include_router(auth_router)
 
