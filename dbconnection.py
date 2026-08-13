@@ -1,7 +1,12 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker,declarative_base
+import os
 
-DATABASE_URL = "mysql+pymysql://root:password@mysql-db:3306/test"
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL is not set")
 
 engine = create_engine(DATABASE_URL)
 
@@ -10,6 +15,7 @@ SessionLocal = sessionmaker(
     autoflush=False,
     bind=engine
 )
+
 Base = declarative_base()
 def get_db():
     db = SessionLocal()
@@ -25,6 +31,3 @@ except Exception as e:
     print("Database connection failed:", e)
 
     from sqlalchemy import create_engine
-
-
-
