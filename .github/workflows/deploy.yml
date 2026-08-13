@@ -40,8 +40,12 @@ jobs:
       - name: Deploy
         if: success()
         run: |
+          cd ~/fastapi
+          git fetch origin
+          git reset --hard origin/main
           docker-compose build
           docker-compose up -d fastapi redis
+          
 
       # 7. Check running containers
       - name: Check containers
