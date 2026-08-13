@@ -40,7 +40,7 @@ jobs:
       - name: Deploy
         if: success()
         run: |
-          cd ~/fastapi
+          
           git fetch origin
           git reset --hard origin/main
           docker-compose build
