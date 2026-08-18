@@ -10,6 +10,7 @@ from routers.auth import router as auth_router
 #app = FastAPI()
 app = FastAPI(root_path="/python")
 
+
 @app.on_event("startup")
 def startup():
     Base.metadata.create_all(bind=engine)
