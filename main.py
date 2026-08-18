@@ -7,8 +7,8 @@ from dbconnection import get_db
 from routers.registration import router as registration_router
 from services.redis_service import redis_client
 from routers.auth import router as auth_router
-#app = FastAPI()
-app = FastAPI(root_path="/python")
+app = FastAPI()
+#app = FastAPI(root_path="/python")
 
 
 @app.on_event("startup")
